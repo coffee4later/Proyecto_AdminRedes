@@ -1,6 +1,7 @@
 
 !Parametros basicos
 hostname SW_ECP4_01_A
+ip domain-name ecp4_01_a.local
 banner motd #Acceso no_autorizado
 enable secret class
 service password-encryption
@@ -37,6 +38,9 @@ switchport access vlan 5
 interface range fa0/9 - 12
 switchport mode access
 switchport access vlan 7
+interface range fa0/23 - 24
+switchport mode access
+switchport access vlan 99
 
 !Puerto de trunk
 interface g0/1

@@ -1,7 +1,7 @@
 
 !Parametros basicos
-hostname SW_ECP4_01_D
-ip domain-name ecp4_01_d.local
+hostname SW_ECP2_01_A
+ip domain-name ecp2_01_a.local
 banner motd #Acceso no_autorizado
 enable secret class
 service password-encryption
@@ -19,27 +19,20 @@ crypto key generate rsa
 ip ssh version 2
 
 !VLANs
-vlan 3
-name Administrativos
-vlan 4
-name Directivos
-vlan 5
-name Soporte_TI
-vlan 6
-name Estudiantes
-vlan 7
-name Servidores
 vlan 8
 name Profesores
 vlan 99
 name Admin_Infra_TI
 
-!Asignacion de puertos a VLAN
+!Asignacion de puertos a VLANs
+interface range fa0/1 - 8
+switchport mode access
+switchport access vlan 8
 
 !Puerto de trunk
-interface g1/0/1-5
+interface g0/1
 switchport mode trunk
-switchport trunk allowed vlan 3,4,5,6,7,8,99
+switchport trunk allowed vlan 8,99
 
 !Config de interfaces
 interface vlan 99

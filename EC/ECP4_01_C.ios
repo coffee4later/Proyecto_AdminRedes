@@ -1,13 +1,18 @@
+enablw
+conf t
 
 !Parametros basicos
 hostname SW_ECP4_01_C
+ip domain-name ecp4_01_c.local
 banner motd #Acceso no_autorizado
 enable secret class
 service password-encryption
 username admin secret cisco
+
 line con 0
 password cisco
 login
+
 line vty 0 4
 transport input ssh
 login local
@@ -31,53 +36,172 @@ name Servidores
 vlan 8
 name Profesores
 vlan 11
-name Profesores
+name Laboratorios_AE
 vlan 12
-name Profesores
+name Camaras_AE
 vlan 13
-name Profesores
+name Jefatura_AE
 vlan 14
-name Profesores
+name Admistrativos_AE
 vlan 21
-name Profesores
+name Laboratorios_II
 vlan 22
-name Profesores
+name Camaras_II
 vlan 23
-name Profesores
+name Jefatura_II
 vlan 24
-name Profesores
+name Administrativos_II
 vlan 31
-name Profesores
+name Laboratorios_IB
 vlan 32
-name Profesores
+name Camaras_IB
 vlan 33
-name Profesores
+name Jefatura_IB
 vlan 34
-name Profesores
+name Administrativos_IB
 vlan 41
-name Profesores
+name Salas_lectura_BB
 vlan 42
-name Profesores
+name Camaras_BB
 vlan 43
-name Profesores
+name Jefatura_BB
 vlan 44
-name Profesores
+name Control_BB
 vlan 99
 name Admin_Infra_TI
 
-!Asignacion de puertos a VLAN
+!Asignacion de puertos a VLANs
 
 !Puerto de trunk
-interface g0/1
+interface g1/0/1-5
 switchport mode trunk
-switchport trunk allowed vlan 4,5,7,99
+switchport trunk allowed vlan all
+description Trunk hacia SW_ECP4_01_A
+exit
+
+!Enrutamiento de capa 3
+ip routing
+
+!Confuguracion de gateways de vlans
+interface vlan 3
+description vlan_administrativos_ec
+ip address 10.0.36.126 255.255.255.128
+no shutdown
+
+interface vlan 4
+description vlan_directivos_ec
+ip address 10.0.39.30 255.255.255.224
+no shutdown
+
+interface vlan 5
+description vlan_soporte_TI_ec
+ip address 10.0.39.94 255.255.255.224
+no shutdown
+
+interface vlan 6
+description vlan_estudiantes_ec
+ip address 10.0.31.254 255.255.224.0
+no shutdown
+
+interface vlan 7
+description vlan_servidores_ec
+ip address 10.0.38.254 255.255.255.192
+no shutdown
+
+interface vlan 8
+description vlan_profesores_ec
+ip address 10.0.35.254 255.255.252.0
+no shutdown
+
+interface vlan 11
+description vlan_laboratorios_AE
+ip address 10.0.37.126 255.255.255.128
+no shutdown
+
+interface vlan 12
+description vlan_camaras_AE
+ip address 10.0.39.126 255.255.255.224
+no shutdown
+
+interface vlan 13
+description vlan_jefatura_AE
+ip address 10.0.39.158 255.255.255.224
+no shutdown
+
+interface vlan 14
+description vlan_administrativos_AE
+ip address 10.0.39.190 255.255.255.224
+no shutdown
+
+interface vlan 21
+description vlan_laboratorios_II
+ip address 10.0.37.254 255.255.255.128
+no shutdown
+
+interface vlan 22
+description vlan_camaras_II
+ip address 10.0.39.222 255.255.255.224
+no shutdown
+
+interface vlan 23
+description vlan_jefatura_II
+ip address 10.0.39.254 255.255.255.224
+no shutdown
+
+interface vlan 24
+description vlan_administrativos_II
+ip address 10.0.40.30 255.255.255.224
+no shutdown
+
+interface vlan 31
+description vlan_laboratorios_IB
+ip address 10.0.38.190 255.255.255.192
+no shutdown
+
+interface vlan 32
+description vlan_camaras_IB
+ip address 10.0.40.46 255.255.255.240
+no shutdown
+
+interface vlan 33
+description vlan_jefatura_IB
+ip address 10.0.40.62 255.255.255.240
+no shutdown
+
+interface vlan 34
+description vlan_administrativos_IB
+ip address 10.0.40.78 255.255.255.240
+no shutdown
+
+interface vlan 41
+description vlan_salas_lectura_BB
+ip address 10.0.38.126 255.255.255.128
+no shutdown
+
+interface vlan 42
+description vlan_camaras_BB
+ip address 10.0.40.94 255.255.255.240
+no shutdown
+
+interface vlan 43
+description vlan_jefatura_BB
+ip address 10.0.40.110 255.255.255.240
+no shutdown
+
+interface vlan 44
+description vlan_control_BB
+ip address 10.0.39.62 255.255.255.224
+no shutdown
 
 !Config de interfaces
 interface vlan 99
 ip address 10.0.36.128 255.255.255.128
-no shutdown
-
 !gateway por defecto
 ip default-gateway 10.0.36.254
+no shutdown
+
+end
+write memory
+
 
 
