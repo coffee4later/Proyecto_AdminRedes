@@ -2,13 +2,13 @@
 !Parametros basicos
 hostname SW_ECP4_01_D
 ip domain-name ecp4_01_d.local
-banner motd #Acceso no_autorizado
+banner motd #Acceso no_autorizado#
 enable secret class
 service password-encryption
 username admin secret cisco
 line con 0
 password cisco
-login
+login local
 line vty 0 4
 transport input ssh
 login local
@@ -37,16 +37,17 @@ name Admin_Infra_TI
 !Asignacion de puertos a VLAN
 
 !Puerto de trunk
-interface g1/0/1-5
+interface range g1/0/1-5
 switchport mode trunk
 switchport trunk allowed vlan 3,4,5,6,7,8,99
 
 !Config de interfaces
 interface vlan 99
-ip address 10.0.36.128 255.255.255.128
+ip address 10.0.36.129 255.255.255.128
 no shutdown
 
 !gateway por defecto
 ip default-gateway 10.0.36.254
 
-
+end
+write memory

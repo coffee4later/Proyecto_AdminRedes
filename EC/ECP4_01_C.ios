@@ -1,17 +1,17 @@
-enablw
+enable
 conf t
 
 !Parametros basicos
 hostname SW_ECP4_01_C
 ip domain-name ecp4_01_c.local
-banner motd #Acceso no_autorizado
+banner motd #Acceso no_autorizado#
 enable secret class
 service password-encryption
 username admin secret cisco
 
 line con 0
 password cisco
-login
+login local
 
 line vty 0 4
 transport input ssh
@@ -42,7 +42,7 @@ name Camaras_AE
 vlan 13
 name Jefatura_AE
 vlan 14
-name Admistrativos_AE
+name Administrativos_AE
 vlan 21
 name Laboratorios_II
 vlan 22
@@ -60,7 +60,7 @@ name Jefatura_IB
 vlan 34
 name Administrativos_IB
 vlan 41
-name Salas_lectura_BB
+name Salas_Lectura_BB
 vlan 42
 name Camaras_BB
 vlan 43
@@ -73,7 +73,7 @@ name Admin_Infra_TI
 !Asignacion de puertos a VLANs
 
 !Puerto de trunk
-interface g1/0/1-5
+interface range g1/0/1-5
 switchport mode trunk
 switchport trunk allowed vlan all
 description Trunk hacia SW_ECP4_01_A
@@ -195,9 +195,9 @@ no shutdown
 
 !Config de interfaces
 interface vlan 99
-ip address 10.0.36.128 255.255.255.128
+ip address 10.0.36.254 255.255.255.128
 !gateway por defecto
-ip default-gateway 10.0.36.254
+! ip default-gateway 10.0.36.254
 no shutdown
 
 end

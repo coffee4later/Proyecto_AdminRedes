@@ -1,14 +1,15 @@
-
+en
+conf t
 !Parametros basicos
 hostname SW_ECP2_01_A
 ip domain-name ecp2_01_a.local
-banner motd #Acceso no_autorizado
+banner motd #Acceso no_autorizado#
 enable secret class
 service password-encryption
 username admin secret cisco
 line con 0
 password cisco
-login
+login local
 line vty 0 4
 transport input ssh
 login local
@@ -28,6 +29,9 @@ name Admin_Infra_TI
 interface range fa0/1 - 8
 switchport mode access
 switchport access vlan 8
+interface range fa0/23 - 24
+switchport mode access
+switchport access vlan 99
 
 !Puerto de trunk
 interface g0/1
@@ -36,10 +40,11 @@ switchport trunk allowed vlan 8,99
 
 !Config de interfaces
 interface vlan 99
-ip address 10.0.36.128 255.255.255.128
+ip address 10.0.36.131 255.255.255.128
 no shutdown
 
 !gateway por defecto
 ip default-gateway 10.0.36.254
 
-
+end
+write memory
